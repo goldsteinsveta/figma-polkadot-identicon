@@ -1,0 +1,7 @@
+{
+  "name": "Polkadot Identicon",
+  "id": "829637743849404319",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}
