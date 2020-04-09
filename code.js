@@ -19,20 +19,36 @@ figma.ui.onmessage = msg => {
         // rect.x = 0;
         // rect.resize(256,256);
         // rect.fills = [{type: 'SOLID', color: {r: 0.2, g: 0.2, b: 0.2}}];
+        const dotR = 36;
         // DOT COLS
-        let first_col_start = { x: 28, y: 63, };
-        for (let y = 0; y < 3; y++) {
-            const rect = figma.createRectangle();
-            rect.cornerRadius = 999;
-            rect.resize(36, 36);
-            rect.x = first_col_start.x;
-            rect.y = first_col_start.y;
-            // dot height + vertical margin between dots
-            first_col_start.y = first_col_start.y + 47;
+        for (let x = 0; x < 5; x++) {
+            let dotY = 16;
+            let dot_count = 5;
+            if (x === 0 || x === 4) {
+                dotY = dotY + 48;
+                dot_count = 3;
+            }
+            else if (x === 1 || x === 3) {
+                dotY = dotY + 24;
+                dot_count = 4;
+            }
+            let col_start = {
+                x: 28 + x * (5 + dotR),
+                y: dotY,
+            };
+            for (let y = 0; y < dot_count; y++) {
+                const rect = figma.createRectangle();
+                rect.cornerRadius = dotR;
+                rect.resize(dotR, dotR);
+                rect.x = col_start.x;
+                rect.y = col_start.y;
+                // dot height + vertical margin between dots
+                col_start.y = col_start.y + dotR + 11;
+                figma.currentPage.appendChild(rect);
+                nodes.push(rect);
+                figma.currentPage.selection = nodes;
+            }
         }
-        // figma.currentPage.appendChild(rect);
-        // nodes.push(rect);
-        // figma.currentPage.selection = nodes;
         // figma.viewport.scrollAndZoomIntoView(nodes);
     }
     // Make sure to close the plugin when you're done. Otherwise the plugin will
